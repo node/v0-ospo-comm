@@ -14,10 +14,27 @@ export const resourcesData = {
       url: "#",
       category: "社区资源",
       versions: [
-        { name: "基础版", description: "通用表情包，适合日常交流" },
-        { name: "开源版", description: "开源文化主题表情" },
-        { name: "OSPO版", description: "OSPO 工作场景专属表情" },
-        { name: "OSPO英文版", description: "面向国际社区的英文版本" },
+        {
+          name: "基础版",
+          description: "通用表情包，适合日常交流",
+          url: "https://w.url.cn/s/AVJL7JY",
+          note: "请在手机微信中打开",
+        },
+        {
+          name: "开源版",
+          description: "开源文化主题表情",
+          status: "待上架",
+        },
+        {
+          name: "OSPO版",
+          description: "OSPO 工作场景专属表情",
+          status: "待上架",
+        },
+        {
+          name: "OSPO英文版",
+          description: "面向国际社区的英文版本",
+          status: "待上架",
+        },
       ],
     },
   ],

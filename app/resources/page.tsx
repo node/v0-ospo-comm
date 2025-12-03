@@ -13,9 +13,9 @@ export default function ResourcesPage() {
       <main className="flex-1">
         <div className="border-b border-border bg-muted/50 py-12">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold tracking-tight text-balance">OSPO 图书与报告</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-balance">OSPO 资源中心</h1>
             <p className="mt-4 text-lg text-muted-foreground text-pretty">
-              获取权威的 OSPO 相关书籍、研究报告和实用资源
+              获取 OSPO 社区开源项目、权威书籍、研究报告和实用工具，助力您的开源之旅
             </p>
           </div>
         </div>
@@ -59,7 +59,6 @@ export default function ResourcesPage() {
                         </div>
                       )}
 
-                      {/* 显示表情包版本 */}
                       {project.versions && (
                         <div className="mb-4 space-y-2">
                           <p className="text-xs font-medium text-foreground">可用版本：</p>
@@ -71,6 +70,22 @@ export default function ResourcesPage() {
                                   <span className="text-xs font-medium">{version.name}</span>
                                 </div>
                                 <p className="mt-1 text-xs text-muted-foreground">{version.description}</p>
+                                {version.url ? (
+                                  <a
+                                    href={version.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-1.5 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                                  >
+                                    立即获取
+                                    <ExternalLink className="h-3 w-3" />
+                                  </a>
+                                ) : (
+                                  <span className="mt-1.5 inline-block text-xs text-muted-foreground/70">
+                                    {version.status || "待上架"}
+                                  </span>
+                                )}
+                                {version.note && <p className="mt-1 text-xs text-amber-500">{version.note}</p>}
                               </div>
                             ))}
                           </div>
@@ -85,9 +100,8 @@ export default function ResourcesPage() {
                           </a>
                         </Button>
                       ) : (
-                        <Button variant="outline" size="sm">
-                          即将发布
-                          <ExternalLink className="ml-2 h-3 w-3" />
+                        <Button variant="outline" size="sm" disabled>
+                          敬请期待
                         </Button>
                       )}
                     </CardContent>
