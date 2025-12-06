@@ -77,15 +77,6 @@ export function SiteFooter() {
           <p>© 2025 OSPO 中文社区. 保留所有权利.</p>
         </div>
       </div>
-      <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLZ5YB79TW"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-MLZ5YB79TW');
-        </script>
     </footer>
   )
 }
