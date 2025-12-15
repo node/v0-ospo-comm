@@ -51,8 +51,18 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-muted/50 to-background py-20 md:py-32">
-          <div className="container mx-auto px-4">
+        <section className="relative overflow-hidden border-b border-border py-20 md:py-32">
+          {/* 背景图层 */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('/diverse-open-source-community-collaboration-global.jpg')`,
+            }}
+          />
+          {/* 渐变叠加层确保文字可读性 */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/95 via-background/90 to-background" />
+
+          <div className="container relative z-10 mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="mb-6 text-4xl font-bold tracking-tight text-balance md:text-6xl">
                 开源项目办公室
