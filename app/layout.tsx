@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "OSPO 中文社区 - 开源项目办公室",
   description: "探索 OSPO（开源项目办公室）的组织形式、职责运营、国内外案例及相关资源",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({
