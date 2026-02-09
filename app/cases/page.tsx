@@ -1,8 +1,13 @@
+"use client"
+
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { casesData } from "@/data/cases"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { CasesTabHome } from "@/components/cases/cases-tab-home"
+import { CasesTabRegion } from "@/components/cases/cases-tab-region"
+import { CasesTabAll } from "@/components/cases/cases-tab-all"
+import { casesData, getInternationalCases, getDomesticCases } from "@/data/cases"
+import { Home, Globe, Building2, Database } from "lucide-react"
 
 export default function CasesPage() {
   return (
@@ -10,109 +15,65 @@ export default function CasesPage() {
       <SiteHeader />
 
       <main className="flex-1">
+        {/* 页面头部 */}
         <div className="border-b border-border bg-muted/50 py-12">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold tracking-tight text-balance">OSPO 国内外案例</h1>
-            <p className="mt-4 text-lg text-muted-foreground text-pretty">学习全球领先企业的 OSPO 实践经验和成功案例</p>
+            <h1 className="text-4xl font-bold tracking-tight text-balance">
+              {casesData.tabDescriptions.home.title}
+            </h1>
+            <p className="mt-4 text-lg text-muted-foreground text-pretty">
+              汇集全球领先企业的 OSPO 实践经验，为您的开源战略提供参考
+            </p>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-12">
-          <div className="mx-auto max-w-6xl space-y-12">
-            <section>
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold tracking-tight">国际案例</h2>
-                <Badge variant="outline">{casesData.international.length} 个案例</Badge>
-              </div>
-              <div className="grid gap-6 md:grid-cols-2">
-                {casesData.international.map((case_) => (
-                  <Card key={case_.company} className="h-full">
-                    <CardHeader>
-                      <div className="mb-2 flex items-center justify-between">
-                        <CardTitle>{case_.company}</CardTitle>
-                        <Badge>{case_.scale}</Badge>
-                      </div>
-                      <CardDescription>
-                        {case_.country} · {case_.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <h4 className="mb-2 text-sm font-semibold">主要成就：</h4>
-                      <ul className="space-y-1.5">
-                        {case_.highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
+        {/* Tab 内容区 */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="mx-auto max-w-7xl">
+            <Tabs defaultValue="home" className="space-y-8">
+              <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
+                <TabsTrigger value="home" className="gap-1.5">
+                  <Home className="hidden h-4 w-4 sm:block" />
+                  案例库首页
+                </TabsTrigger>
+                <TabsTrigger value="international" className="gap-1.5">
+                  <Globe className="hidden h-4 w-4 sm:block" />
+                  国际案例
+                </TabsTrigger>
+                <TabsTrigger value="domestic" className="gap-1.5">
+                  <Building2 className="hidden h-4 w-4 sm:block" />
+                  国内案例
+                </TabsTrigger>
+                <TabsTrigger value="all" className="gap-1.5">
+                  <Database className="hidden h-4 w-4 sm:block" />
+                  全部案例库
+                </TabsTrigger>
+              </TabsList>
 
-            <section>
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold tracking-tight">国内案例</h2>
-                <Badge variant="outline">{casesData.domestic.length} 个案例</Badge>
-              </div>
-              <div className="grid gap-6 md:grid-cols-2">
-                {casesData.domestic.map((case_) => (
-                  <Card key={case_.company} className="h-full">
-                    <CardHeader>
-                      <div className="mb-2 flex items-center justify-between">
-                        <CardTitle>{case_.company}</CardTitle>
-                        <Badge>{case_.scale}</Badge>
-                      </div>
-                      <CardDescription>{case_.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <h4 className="mb-2 text-sm font-semibold">主要成就：</h4>
-                      <ul className="space-y-1.5">
-                        {case_.highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
+              <TabsContent value="home">
+                <CasesTabHome />
+              </TabsContent>
 
-            <section>
-              <Card>
-                <CardHeader>
-                  <CardTitle>案例分析：共同特点</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {casesData.insights.commonFeatures.map((feature, index) => (
-                    <div key={index}>
-                      <h3 className="mb-2 font-semibold text-primary">
-                        {index + 1}. {feature.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </section>
+              <TabsContent value="international">
+                <CasesTabRegion
+                  title={casesData.tabDescriptions.international.title}
+                  description={casesData.tabDescriptions.international.description}
+                  cases={getInternationalCases()}
+                />
+              </TabsContent>
 
-            <section>
-              <Card>
-                <CardHeader>
-                  <CardTitle>经验启示</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-                  {casesData.insights.lessons.map((lesson, index) => (
-                    <p key={index}>{lesson}</p>
-                  ))}
-                </CardContent>
-              </Card>
-            </section>
+              <TabsContent value="domestic">
+                <CasesTabRegion
+                  title={casesData.tabDescriptions.domestic.title}
+                  description={casesData.tabDescriptions.domestic.description}
+                  cases={getDomesticCases()}
+                />
+              </TabsContent>
+
+              <TabsContent value="all">
+                <CasesTabAll />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </main>
